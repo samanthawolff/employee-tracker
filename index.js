@@ -1,12 +1,7 @@
-const connection = require('./config/connection');
+const sequelize = require('./config/connection');
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
 
-
-connection.connect((error) => {
-    if (error) throw error;
-    console.log('Database Connected!');
-});
 
 const promptUser = () => {
     return inquirer.prompt([
@@ -26,6 +21,20 @@ const promptUser = () => {
             ]
         }
     ])
+    .then((answers) => {
+        const {choices} = answers;
+
+        if (choices === 'View all departments') {
+            viewAllDepartments();
+        }
+    })
 };
 
+
+const viewAllDepartments = () => {
+    [ sequelize.literal('SELECT department.id AS id, department.name AS department FROM department') ]
+};
+
+
 promptUser();
+sequelize.sync({ force: false });
