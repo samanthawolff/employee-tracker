@@ -77,12 +77,12 @@ const viewAllDepartments = () => {
     console.log('|             Viewing All Departments             |');
     console.log('+-------------------------------------------------+');
 
-    const sql = `SELECT department.name AS Department FROM department`;
+    const sql = `SELECT department.id AS ID, department.name AS Department FROM department`;
 
     connection.query(sql, (error, response) => {
         if(error) throw error;
-        console.log('Response: ', response);
-        //promptUser();
+        console.table(response);
+        promptUser();
     });
 };
 
@@ -99,7 +99,8 @@ const viewAllRoles = () => {
 
     connection.query(sql, (error, response) => {
         if(error) throw error;
-        console.log('Response: ', response);
+        console.table(response);
+        promptUser();
     });
 };
 
@@ -110,57 +111,18 @@ const viewAllEmployees = () => {
     console.log('|             Viewing All Employees             |');
     console.log('+-----------------------------------------------+');
 
-    console.table([
-        {
-            FirstName: 'John',
-            LastName: 'Doe',
-            RoleId: 3,
-            ManagerId: 1
-        },
-        {
-            FirstName: 'Jane',
-            LastName: 'Doe',
-            RoleId: 3,
-            ManagerId: 1
-        },
-        {
-            FirstName: 'Prea',
-            LastName: 'Madonna',
-            RoleId: 1,
-            ManagerId: null
-        },
-        {
-            FirstName: 'David',
-            LastName: 'Frankfurt',
-            RoleId: 2,
-            ManagerId: 1
-        },
-        {
-            FirstName: 'Missy',
-            LastName: 'Morgan',
-            RoleId: 4,
-            ManagerId: null
-        },
-        {
-            FirstName: 'Spencer',
-            LastName: 'Nohavitza',
-            RoleId: 5,
-            ManagerId: 1
-        },
-        {
-            FirstName: 'Matthew',
-            LastName: 'Long',
-            RoleId: 5,
-            ManagerId: null
-        },
-        {
-            FirstName: 'Chapel',
-            LastName: 'Karot',
-            RoleId: 1,
-            ManagerId: null
-        }
-    ]);
-    promptUser();
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, 
+                 CONCAT (manager.first_name, " ", manager.last_name) AS manager 
+                 FROM employee 
+                 LEFT JOIN role ON employee.role_id = role.id 
+                 LEFT JOIN department ON role.department_id = department.id 
+                 LEFT JOIN employee manager ON employee.manager_id = manager.id`;
+
+    connection.query(sql, (error, response) => {
+        if(error) throw error;
+        console.table(response);
+        promptUser()
+    })
 };
 
 
