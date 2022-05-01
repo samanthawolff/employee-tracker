@@ -21,10 +21,10 @@ const promptUser = () => {
             ]
         }
     ])
-    .then((answers) => {
-        const {choices} = answers;
+    .then(answers => {
+        
 
-        if (choices === 'View all departments') {
+        if (answers.userChoices === 'View all departments') {
             viewAllDepartments();
         }
     })
@@ -32,7 +32,17 @@ const promptUser = () => {
 
 
 const viewAllDepartments = () => {
-    [ sequelize.literal('SELECT department.id AS id, department.name AS department FROM department') ]
+   
+   console.log('testing 123!');
+    /* const sql = `SELECT department.id AS id, department.name AS department FROM department`;
+
+    db.query(sql, (err, rows) => {
+        if (err) throw err;
+        res.json({
+            message: 'success',
+            data: rows
+        })
+    }) */ 
 };
 
 
