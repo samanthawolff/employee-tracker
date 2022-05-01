@@ -28,7 +28,8 @@ const promptUser = () => {
                 'Add a department',
                 'Add a role',
                 'Add an employee',
-                'Update an employee role'
+                'Update an employee role',
+                'Exit Menu'
             ]
         }
     ])
@@ -62,6 +63,10 @@ const promptUser = () => {
         if(answers.userChoices === 'Update an employee role') {
             updateEmployee();
         };
+
+        if(answers.userChoices === 'Exit Menu') {
+            connection.end()
+        };
     })
 };
 
@@ -72,32 +77,13 @@ const viewAllDepartments = () => {
     console.log('|             Viewing All Departments             |');
     console.log('+-------------------------------------------------+');
 
-    const sql = `SELECT department.name AS department FROM department`;
+    const sql = `SELECT department.name AS Department FROM department`;
 
     connection.query(sql, (error, response) => {
         if(error) throw error;
         console.log('Response: ', response);
-        promptUser();
+        //promptUser();
     });
-
-    /* console.table([
-       {
-           Departments: 'Human-Resources'
-       },
-       {
-           Departments: 'Accounting'
-       },
-       {
-           Departments: 'Sales'
-       },
-       {
-           Departments: 'Reception'
-       },
-       {
-           Departments: 'Legal'
-       }
-    ]);
-    promptUser(); */
 };
 
 
@@ -107,34 +93,14 @@ const viewAllRoles = () => {
     console.log('|             Viewing All Roles             |');
     console.log('+-------------------------------------------+');
 
-    console.table([
-        {
-            Role: 'HR-Rep',
-            Salary: 50000,
-            DepartmentId: 1
-        },
-        {
-            Role: 'Accountant',
-            Salary: 55000,
-            DepartmentId: 2
-        },
-        {
-            Role: 'Sales-Rep',
-            Salary: 62000,
-            DepartmentId: 3
-        },
-        {
-            Role: 'Receptionist',
-            Salary: 30000,
-            DepartmentId: 4
-        },
-        {
-            Role: 'Lawyer',
-            Salary: 90000,
-            DepartmentId: 5
-        }
-    ]);
-    promptUser();
+    const sql = `SELECT role.id AS ID, role.title AS Title, role.salary AS Salary, role.department_id AS Department 
+                 FROM role
+                 INNER JOIN department ON role.department_id = department_id`;
+
+    connection.query(sql, (error, response) => {
+        if(error) throw error;
+        console.log('Response: ', response);
+    });
 };
 
 
