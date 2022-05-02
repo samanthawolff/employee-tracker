@@ -128,7 +128,31 @@ const viewAllEmployees = () => {
 
 // Add a Department
 const addDepartment = () => {
-    console.log('test add department');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'newDepartment',
+            message: 'What is the name of your new department?',
+            validate: newDepartmentInput => {
+                if (newDepartmentInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the new departments name!');
+                    return false;
+                };
+            }
+        }
+    ])
+    .then((answer) => {
+        const sql = `INSERT INTO department (name) 
+                     VALUES (?)`;
+        
+        connection.query(sql, answer.newDepartment, (error, response) => {
+            if(error) throw error;
+            console.table(answer.newDepartment);
+            viewAllDepartments();
+        });
+    });
 };
 
 
