@@ -17,7 +17,7 @@
   Please be sure to run npm install before trying to use this application. Check your package.json to make sure you have inquirer, mysql2, and console.table installed.
 
   ## Usage
-  An easy-to-use application meant for storing and keepin track of employee information.
+  An easy-to-use application meant for storing and keeping track of employee information.
 
   ## Licensing
   This project is licensed under ISC
@@ -25,4 +25,4 @@
   ## Questions
   * [Github Account](https://github.com/samanthawolff)
   * Email Me: samanthawolff07@gmail.com
-  * How to Reach out to me: Please fell free to reach out to me via email with any questions, comments, or concerns!
+  * How to Reach out to me: Please feel free to reach out to me via email with any questions, comments, or concerns!
