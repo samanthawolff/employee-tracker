@@ -21,6 +21,9 @@
 
   ## Licensing
   This project is licensed under ISC
+  
+  ## Notice
+  This project is still a work in progress. Adding employees, roles, and updating employee roles will be future developments.
 
   ## Questions
   * [Github Account](https://github.com/samanthawolff)
